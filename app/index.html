@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>RecordRTC</title>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+  </head>
+
+  <body>
+    <!-- <div class="container">
+    <div class="content">
+      <h2>Your ID: <span id="ws-id"></span></h2>
+      <div class="button-container">
+        <button class="action-button" id="start-recording">Start Recording</button>
+        <button class="action-button" id="stop-recording" disabled>Stop Recording</button>
+      </div>
+      <br><br>
+      <div>Transcribed Text:</div>
+      <div class="text-container" id="text"></div>
+    </div>
+  </div>
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      align-items: center;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 800px;
+      justify-items: center;
+      align-items: center;
+    }
+    .button-container {
+      display: flex;
+      flex-direction: row;
+      justify-items: center;
+      gap: 20px;
+    }
+    .text-container {
+      min-width: 200px;
+      max-width: 400px;
+      background-color: aliceblue;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: left;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
+      color: black;
+    }
+    .action-button {
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #009688;
+      border: none;
+      color: white;
+    }
+    .action-button:disabled{
+      opacity: 0.5; 
+      cursor: not-allowed;
+    }
+  </style>
+  <script type="text/javascript">
+    global_blob = null;
+    global_files = null;
+    var client_id = Date.now()
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const protocol = isLocalhost ? 'ws://' : 'wss://';
+    const domain = window.location.host;
+    document.querySelector("#ws-id").textContent = client_id;
+    const ws = new WebSocket(`${protocol}${domain}/ws/${client_id}`);
+    ws.onopen = function (e) {
+      startRecording.disabled = false;
+      console.log('opened');
+    };
+    ws.onmessage = function (event) {
+      document.getElementById('text').innerHTML += event.data + ' ';
+    };
+    function sendMessage(event) {
+    }
+
+    async function asyncSend(blob) {
+      arr = await blob.arrayBuffer();
+      base64String = btoa(String.fromCharCode.apply(null, new Uint8Array(arr)));
+      ws.send(base64String);
+    }
+
+    const startRecording = document.getElementById('start-recording');
+    const stopRecording = document.getElementById('stop-recording');
+    let recordAudio;
+
+    startRecording.onclick = function () {
+      startRecording.disabled = true;
+
+      navigator.getUserMedia({
+        audio: true
+      }, function (stream) {
+
+        recordAudio = RecordRTC(stream, {
+          type: 'audio',
+          mimeType: 'audio/webm',
+          sampleRate: 44100,
+          desiredSampRate: 16000,
+
+          recorderType: StereoAudioRecorder,
+          numberOfAudioChannels: 1,
+          timeSlice: 50,
+          ondataavailable: function (blob) {
+            asyncSend(blob);
+            console.log(blob);
+            global_blob = blob;
+          }
+        });
+
+        recordAudio.startRecording();
+        stopRecording.disabled = false;
+      }, function (error) {
+        console.error(JSON.stringify(error));
+      });
+    };
+
+    stopRecording.onclick = function () {
+      startRecording.disabled = false;
+      stopRecording.disabled = true;
+      recordAudio.stopRecording(function () {
+        recordAudio.getDataURL(function (audioDataURL) {
+          var files = {
+            audio: {
+              type: recordAudio.getBlob().type || 'audio/wav',
+              dataURL: audioDataURL
+            }
+          };
+          console.log(files);
+          global_files = files;
+
+        });
+      });
+    };
+  </script> -->
+  </body>
+</html>
