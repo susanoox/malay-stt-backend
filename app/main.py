@@ -1,6 +1,8 @@
 import sys
 import os
 
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 SOURCE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__name__)))
 sys.path.insert(0, SOURCE_DIR)
 
