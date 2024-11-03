@@ -3,7 +3,6 @@ from apiflask.fields import File, String, Boolean
 from apiflask.validators import FileSize, FileType, OneOf
 import uuid, datetime, json
 from flask_cors import CORS
-import asyncio
 
 from helpers.run import convert_base64, srt_to_dict_list
 from helpers.runpod import stt_async, stt_sync
@@ -50,8 +49,6 @@ def realtime_audio_stream(form_and_files_data, query_data):
         }
 
         stt_output = stt_sync(payload)
-        
-        print('stt_output', stt_output)
 
         response = {
             "streamId" : streamId,
@@ -82,11 +79,16 @@ def upload_audio_file(form_and_files_data):
             "language": form_and_files_data['language'] or None,
             "audio_base64": audio_base64,
         }
-        print(payload['language'])
-        response = asyncio.run(stt_async(payload))
-        print(response)
-        
-        return { 'message': "Successfully audio transcribed !", 'response': response }, 200
+
+        stt_output = stt_async(payload)
+
+        response = {
+            "detected_language": stt_output['detected_language'],
+            "transcription": srt_to_dict_list(stt_output['transcription']),
+            "translation": srt_to_dict_list(stt_output['translation']) if form_and_files_data['translate'] else []
+        }
+
+        return response, 200
 
     except Exception as e:
         print(e)

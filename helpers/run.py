@@ -43,3 +43,6 @@ def srt_to_dict_list(srt_text, translate=False):
                 })
 
     return transcription_list
+
+def is_completed(status):
+    return status in ["COMPLETED", "FAILED", "TIMED_OUT"]
