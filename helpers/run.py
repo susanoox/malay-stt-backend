@@ -5,7 +5,7 @@ from helpers.constants import TEMP_FOLDER
 
 def convert_base64(audio_file):
     try:
-        binary_file_data = audio_file.file.read()
+        binary_file_data = audio_file.read() # For window audio_file.file.read()
         base64_encoded_data = base64.b64encode(binary_file_data)
         base64_output = base64_encoded_data.decode('utf-8')
         return base64_output

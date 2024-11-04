@@ -12,7 +12,7 @@ stt_blueprint = APIBlueprint('STT', __name__, tag = 'Speech to Text APIs')
 CORS(stt_blueprint)
 
 class AudioFileUploadPayload(Schema):
-    file = File(required=True, validate=[FileType(['.mp3', '.mp4', '.wav', '.ogg', '.flac']), FileSize(max='50 MB')])
+    file = File(required=True, validate=[FileType(['.mp3', '.mp4', '.wav', '.ogg', '.flac', '.webm']), FileSize(max='100 MB')])
     model = String(required=True, default="large-v2", validate=OneOf(['base', 'medium', 'large-v2', 'large-v3']))
     translate = Boolean(default=True)
     enableVAD = Boolean(default=True)
@@ -20,7 +20,7 @@ class AudioFileUploadPayload(Schema):
     initialPrompt = String(required=False, default=None)
 
 class RealTimeAudioStreamPayload(Schema):
-    file = File(required=True, validate=[FileType(['.mp3', '.mp4', '.wav', '.ogg', '.flac']), FileSize(max='50 MB')])
+    file = File(required=True, validate=[FileType(['.mp3', '.mp4', '.wav', '.ogg', '.flac', '.webm']), FileSize(max='100 MB')])
     model = String(required=False, default="large-v2", validate=OneOf(['base', 'medium', 'large-v2', 'large-v3']))
     translate = Boolean(required=False, default=True)
     enableVAD = Boolean(required=False, default=True)
