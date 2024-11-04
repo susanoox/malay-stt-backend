@@ -31,7 +31,7 @@ def srt_to_dict_list(srt_text, translate=False):
         if match:
             start_time = match.group(1)
             end_time = match.group(2)
-            timestamp = f"{start_time} --> {end_time}"
+            timestamp = f"{start_time} - {end_time}"
 
             if translate:
                 transcription_list.append({
