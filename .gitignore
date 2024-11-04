@@ -131,6 +131,8 @@ env.bak/
 venv.bak/
 .flaskenv
 
+temp/
+
 # Spyder project settings
 .spyderproject
 .spyproject

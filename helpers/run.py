@@ -1,5 +1,7 @@
 import base64
-import re
+import re, os, uuid
+
+from helpers.constants import TEMP_FOLDER
 
 def convert_base64(audio_file):
     try:
@@ -46,3 +48,23 @@ def srt_to_dict_list(srt_text, translate=False):
 
 def is_completed(status):
     return status in ["COMPLETED", "FAILED", "TIMED_OUT"]
+
+def run_file_generation(file):
+    try:
+        filename = str(uuid.uuid4()) + '.' + file.filename.rsplit('.', 1)[1].lower()
+        file_path = os.path.join(TEMP_FOLDER, filename)
+        file.save(file_path)
+        return filename
+
+    except Exception as e:
+        print(f"Error generating temp file: {e}")
+
+def run_file_deletion(filename):
+    try:
+        file_path = os.path.join(TEMP_FOLDER, filename)
+        os.remove(file_path)
+        return True
+
+    except FileNotFoundError as e:
+        print(f"Error deleting temp file: {e}")
+        return False
