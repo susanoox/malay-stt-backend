@@ -1,2 +1,2 @@
 TEMP_FOLDER = "temp/"
-HOST_DOMAIN = "http://127.0.0.1:8080"
+HOST_DOMAIN = "http://3.111.144.136:8080"
